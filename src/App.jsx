@@ -1,5 +1,8 @@
 import { useState } from "react";
 import TodoForm from "./components/TodoForm";
+import ViewTodos from "./components/ViewTodos";
+import Box from "@mui/material/Box";
+import "./style/main.css";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -14,9 +17,17 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <TodoForm addTask={addTask} />
-    </div>
+      <ViewTodos tasks={tasks} />
+    </Box>
   );
 };
 
