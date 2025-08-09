@@ -16,6 +16,13 @@ const App = () => {
     setTasks((prev) => [...prev, newTask]);
   };
 
+  const updateTask = (id, updatedTask) => {
+    const updatedTasks = tasks.map((task) => {
+      return task.id === id ? { ...updatedTask } : task;
+    });
+    setTasks(updatedTasks);
+  };
+
   return (
     <Box
       sx={{
@@ -26,7 +33,7 @@ const App = () => {
       }}
     >
       <TodoForm addTask={addTask} />
-      <ViewTodos tasks={tasks} />
+      <ViewTodos tasks={tasks} updateTask={updateTask} />
     </Box>
   );
 };
