@@ -7,32 +7,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
 const TodoCard = ({ task, updateTask, deleteTask }) => {
-  const [taskCompleted, setTaskCompleted] = useState(task.isCompleted);
-  const [ttask, setTTask] = useState(task.task);
+  const [editedText, setEditedText] = useState(task.task);
   const [editMode, setEditMode] = useState(false);
-  const handleCheckBox = () => {
-    setTaskCompleted(!taskCompleted);
-    const newTask = {
-      id: task.id,
-      task: task.task,
-      isCompleted: !task.isCompleted,
-    };
-    updateTask(task.id, newTask);
-  };
 
   const handleSave = () => {
-    if (ttask.trim() === "") return;
-    setEditMode(!editMode);
-    const newTask = {
-      id: task.id,
-      task: ttask,
-      isCompleted: task.isCompleted,
-    };
-    updateTask(task.id, newTask);
-  };
-
-  const handleDelete = () => {
-    deleteTask(task.id);
+    if (editedText.trim() === "") return;
+    setEditMode(false);
+    updateTask(task.id, { ...task, task: editedText });
   };
 
   return (
@@ -50,13 +31,14 @@ const TodoCard = ({ task, updateTask, deleteTask }) => {
       {editMode ? (
         <TextField
           variant="standard"
-          value={ttask}
+          value={editedText}
           onDoubleClick={handleSave}
-          onChange={(e) => setTTask(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSave()}
+          onChange={(e) => setEditedText(e.target.value)}
         />
       ) : (
         <Typography onDoubleClick={() => setEditMode(!editMode)}>
-          {ttask}
+          {editedText}
         </Typography>
       )}
       <Box
@@ -65,8 +47,17 @@ const TodoCard = ({ task, updateTask, deleteTask }) => {
           gap: "5px",
         }}
       >
-        <Checkbox checked={taskCompleted} onChange={handleCheckBox} />
-        <Button variant="contained" color="error" onClick={handleDelete}>
+        <Checkbox
+          checked={task.isCompleted}
+          onChange={() =>
+            updateTask(task.id, { ...task, isCompleted: !task.isCompleted })
+          }
+        />
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => deleteTask(task.id)}
+        >
           <DeleteIcon />
         </Button>
       </Box>
