@@ -1,10 +1,10 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
 
 const TodoCard = ({ task, updateTask, deleteTask }) => {
   const [editedText, setEditedText] = useState(task.task);
@@ -12,20 +12,20 @@ const TodoCard = ({ task, updateTask, deleteTask }) => {
 
   const handleSave = () => {
     if (editedText.trim() === "") return;
-    setEditMode(false);
     updateTask(task.id, { ...task, task: editedText });
+    setEditMode(false);
   };
 
   return (
     <Box
       sx={{
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        padding: "1rem",
-        margin: "0.5rem 0",
         display: "flex",
-        justifyContent: "space-between",
         alignItems: "center",
+        justifyContent: "space-between",
+        padding: "1rem",
+        backgroundColor: "white",
+        borderRadius: "4px",
+        boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
       }}
     >
       {editMode ? (

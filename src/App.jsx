@@ -1,7 +1,10 @@
 import { useState } from "react";
+
 import TodoForm from "./components/TodoForm";
 import ViewTodos from "./components/ViewTodos";
+
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import "./style/main.css";
 
 const App = () => {
@@ -17,15 +20,11 @@ const App = () => {
   };
 
   const updateTask = (id, updatedTask) => {
-    const updatedTasks = tasks.map((task) => {
-      return task.id === id ? { ...updatedTask } : task;
-    });
-    setTasks(updatedTasks);
+    setTasks(tasks.map((task) => (task.id === id ? { ...updatedTask } : task)));
   };
 
   const deleteTask = (id) => {
-    const updatedTask = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTask);
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (
@@ -35,8 +34,13 @@ const App = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        minHeight: "100vh",
+        padding: "2rem",
       }}
     >
+      <Typography variant="h2" gutterBottom>
+        Todo List
+      </Typography>
       <TodoForm addTask={addTask} />
       <ViewTodos
         tasks={tasks}
