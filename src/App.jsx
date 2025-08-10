@@ -23,6 +23,11 @@ const App = () => {
     setTasks(updatedTasks);
   };
 
+  const deleteTask = (id) => {
+    const updatedTask = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTask);
+  };
+
   return (
     <Box
       sx={{
@@ -33,7 +38,11 @@ const App = () => {
       }}
     >
       <TodoForm addTask={addTask} />
-      <ViewTodos tasks={tasks} updateTask={updateTask} />
+      <ViewTodos
+        tasks={tasks}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
     </Box>
   );
 };

@@ -3,9 +3,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
-const TodoCard = ({ task, updateTask }) => {
+const TodoCard = ({ task, updateTask, deleteTask }) => {
   const [taskCompleted, setTaskCompleted] = useState(task.isCompleted);
   const [ttask, setTTask] = useState(task.task);
   const [editMode, setEditMode] = useState(false);
@@ -19,8 +20,6 @@ const TodoCard = ({ task, updateTask }) => {
     updateTask(task.id, newTask);
   };
 
-  const handleChange = (e) => {};
-
   const handleSave = () => {
     if (ttask.trim() === "") return;
     setEditMode(!editMode);
@@ -30,6 +29,10 @@ const TodoCard = ({ task, updateTask }) => {
       isCompleted: task.isCompleted,
     };
     updateTask(task.id, newTask);
+  };
+
+  const handleDelete = () => {
+    deleteTask(task.id);
   };
 
   return (
@@ -63,7 +66,9 @@ const TodoCard = ({ task, updateTask }) => {
         }}
       >
         <Checkbox checked={taskCompleted} onChange={handleCheckBox} />
-        <Button variant="contained">Delete</Button>
+        <Button variant="contained" color="error" onClick={handleDelete}>
+          <DeleteIcon />
+        </Button>
       </Box>
     </Box>
   );

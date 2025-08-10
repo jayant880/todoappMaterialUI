@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TodoCard from "./TodoCard";
 
-const ViewTodos = ({ tasks, updateTask }) => {
+const ViewTodos = ({ tasks, updateTask, deleteTask }) => {
   return (
     <Box
       sx={{
@@ -37,7 +37,12 @@ const ViewTodos = ({ tasks, updateTask }) => {
       >
         {tasks.length > 0 ? (
           tasks.map((task) => (
-            <TodoCard key={task.id} task={task} updateTask={updateTask} />
+            <TodoCard
+              key={task.id}
+              task={task}
+              updateTask={updateTask}
+              deleteTask={deleteTask}
+            />
           ))
         ) : (
           <Typography>No todos yet</Typography>
